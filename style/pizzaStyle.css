@@ -1,0 +1,11 @@
+html {
+  background: url(https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/Z8XWHF6BW6.jpg) no-repeat center center fixed;
+  background-size: cover; }
+  html body {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)); }
+    html body #app {
+      color: white; }
+      html body #app .lead {
+        font-size: 1.5em; }
+
+/*# sourceMappingURL=style.css.map */
