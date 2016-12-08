@@ -66,12 +66,17 @@ class Input extends React.Component {
 class Result extends React.Component {
   render() {
     return (
-      <p>
-        Result: <strong>{this.props.solution} </strong>
-        for a total of <strong>{this.props.slices}</strong> slices,
-        leaving <strong>{this.props.slices - this.props.result}</strong> left over or
-        <strong> {(this.props.slices / this.props.people).toFixed(2)}</strong> slices each</p>);
+			<div className="text-center">
+      <p><span className="lead"><strong>{this.props.solution}</strong></span></p>
+			<p><strong>{this.props.slices}</strong> slices</p>
+			<p><strong>{this.props.slices - this.props.result}</strong> left over</p>
+			<p><strong>{(this.props.slices / this.props.people).toFixed(2)}</strong> slices each</p>
+			</div>
 
+        // for a total of  slices,
+        // leaving <strong>{this.props.slices - this.props.result}</strong> left over or
+        // <strong> {(this.props.slices / this.props.people).toFixed(2)}</strong> slices each</p>);
+		)
   }
 }
 
