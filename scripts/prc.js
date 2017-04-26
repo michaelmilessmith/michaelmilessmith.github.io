@@ -66,14 +66,16 @@
 
 	var pizzaCalculator = function () {
 	  function pizzaCalculator() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { people: 0, slices: 0 };
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { people: 0, slices: 0, bogof: true };
 	    var action = arguments[1];
 
 	    switch (action.type) {
 	      case 'UPDATE_PEOPLE':
-	        return { people: action.value, slices: state.slices };
+	        return Object.assign({}, state, { people: action.value });
 	      case 'UPDATE_SLICES':
-	        return { people: state.people, slices: action.value };
+	        return Object.assign({}, state, { slices: action.value });
+	      case 'TOOGLE_BOGOF':
+	        return Object.assign({}, state, { bogof: !state.bogof });
 	      default:
 	        return state;
 	    }
@@ -104,7 +106,17 @@
 	        }
 
 	        return onSlicesChange;
-	      }() })), document.getElementById('container'));
+	      }(),
+	      onBogofChange: function () {
+	        function onBogofChange(value) {
+	          return store.dispatch({
+	            type: 'TOOGLE_BOGOF'
+	          });
+	        }
+
+	        return onBogofChange;
+	      }()
+	    })), document.getElementById('container'));
 	  }
 
 	  return render;
@@ -161,8 +173,17 @@
 	        return _react2['default'].createElement(
 	          'div',
 	          null,
-	          _react2['default'].createElement(_Input2['default'], { handlePeopleChange: this.props.onPeopleChange, handleSlicesChange: this.props.onSlicesChange }),
-	          _react2['default'].createElement(_Result2['default'], { people: this.props.people, slices: this.props.slices })
+	          _react2['default'].createElement(_Input2['default'], {
+	            handlePeopleChange: this.props.onPeopleChange,
+	            handleSlicesChange: this.props.onSlicesChange,
+	            handleBogofChange: this.props.onBogofChange,
+	            bogof: this.props.bogof
+	          }),
+	          _react2['default'].createElement(_Result2['default'], {
+	            people: this.props.people,
+	            slices: this.props.slices,
+	            pizzaOptions: { bogof: this.props.bogof }
+	          })
 	        );
 	      }
 
@@ -248,6 +269,26 @@
 
 	                    return onChange;
 	                  }(), placeholder: "Number of Slices per Person", className: "form-control" })
+	              )
+	            ),
+	            _react2["default"].createElement(
+	              "div",
+	              null,
+	              _react2["default"].createElement(
+	                "div",
+	                { className: "text-center" },
+	                _react2["default"].createElement(
+	                  "label",
+	                  { "for": "bogof", className: "checkbox-inline" },
+	                  _react2["default"].createElement("input", { id: "bogof", type: "checkbox", checked: this.props.bogof, onChange: function () {
+	                      function onChange(e) {
+	                        return _this2.props.handleBogofChange(e.target.value);
+	                      }
+
+	                      return onChange;
+	                    }() }),
+	                  "Buy One Get One Free?"
+	                )
 	              )
 	            )
 	          )
@@ -870,7 +911,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -987,7 +1028,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 	'use strict';
 
@@ -1437,7 +1478,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -1546,7 +1587,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	function makeEmptyFunction(arg) {
@@ -1587,7 +1628,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -1618,7 +1659,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -1823,7 +1864,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -1868,7 +1909,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -2954,7 +2995,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -3417,7 +3458,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -3848,7 +3889,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -4582,7 +4623,9 @@
 	    key: "_calculateSolution",
 	    value: function () {
 	      function _calculateSolution(slicesNeeded) {
-	        var _pizzaCalculator = (0, _pizzaCalculator3["default"])({ slicesNeeded: slicesNeeded, bogof: true }),
+	        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	        var _pizzaCalculator = (0, _pizzaCalculator3["default"])({ slicesNeeded: slicesNeeded, bogof: options.bogof }),
 	            pizzas = _pizzaCalculator.pizzas,
 	            total = _pizzaCalculator.total;
 
@@ -4603,9 +4646,14 @@
 	    key: "render",
 	    value: function () {
 	      function render() {
-	        var slicesNeeded = this.props.people * this.props.slices;
+	        var _props = this.props,
+	            people = _props.people,
+	            slices = _props.slices,
+	            pizzaOptions = _props.pizzaOptions;
 
-	        var _calculateSolution2 = this._calculateSolution(slicesNeeded),
+	        var slicesNeeded = people * slices;
+
+	        var _calculateSolution2 = this._calculateSolution(slicesNeeded, pizzaOptions),
 	            solution = _calculateSolution2.solution,
 	            slicesAvailible = _calculateSolution2.slicesAvailible;
 
@@ -4651,7 +4699,7 @@
 	            _react2["default"].createElement(
 	              "strong",
 	              null,
-	              (slicesAvailible / this.props.people).toFixed(2)
+	              (slicesAvailible / people).toFixed(2)
 	            ),
 	            " slices each"
 	          )
@@ -5054,7 +5102,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 	'use strict';
 
@@ -6313,7 +6361,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -6804,7 +6852,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -6885,7 +6933,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -6948,7 +6996,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -7122,7 +7170,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -8236,7 +8284,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -8360,7 +8408,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -8559,7 +8607,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -8652,7 +8700,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -8751,7 +8799,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -8780,7 +8828,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -9144,7 +9192,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -9186,7 +9234,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -9289,7 +9337,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -9622,7 +9670,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -13086,7 +13134,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 * @typechecks static-only
 	 */
 
@@ -14299,7 +14347,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -15273,7 +15321,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -16576,7 +16624,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -16713,7 +16761,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -16744,7 +16792,7 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
 	 * @typechecks
-	 *
+	 * 
 	 */
 
 	/*eslint-disable no-self-compare */
@@ -16968,7 +17016,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -16993,7 +17041,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -17237,7 +17285,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -17261,7 +17309,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -17306,7 +17354,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -17482,7 +17530,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -19631,7 +19679,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	var isTextNode = __webpack_require__(158);
@@ -20275,7 +20323,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -21729,7 +21777,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
