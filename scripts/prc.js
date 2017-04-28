@@ -247,13 +247,19 @@
 	              _react2["default"].createElement(
 	                "div",
 	                { className: "col-sm-12" },
-	                _react2["default"].createElement("input", { id: "number-of-people", type: "number", onChange: function () {
+	                _react2["default"].createElement("input", {
+	                  id: "number-of-people",
+	                  type: "number",
+	                  onChange: function () {
 	                    function onChange(e) {
 	                      return _this2.props.handlePeopleChange(e.target.value);
 	                    }
 
 	                    return onChange;
-	                  }(), placeholder: "Number of People", className: "form-control" })
+	                  }(),
+	                  placeholder: "Number of People",
+	                  className: "form-control"
+	                })
 	              )
 	            ),
 	            _react2["default"].createElement(
@@ -262,13 +268,19 @@
 	              _react2["default"].createElement(
 	                "div",
 	                { className: "col-sm-12" },
-	                _react2["default"].createElement("input", { id: "number-of-slices", type: "number", onChange: function () {
+	                _react2["default"].createElement("input", {
+	                  id: "number-of-slices",
+	                  type: "number",
+	                  onChange: function () {
 	                    function onChange(e) {
 	                      return _this2.props.handleSlicesChange(e.target.value);
 	                    }
 
 	                    return onChange;
-	                  }(), placeholder: "Number of Slices per Person", className: "form-control" })
+	                  }(),
+	                  placeholder: "Number of Slices per Person",
+	                  className: "form-control"
+	                })
 	              )
 	            ),
 	            _react2["default"].createElement(
@@ -280,13 +292,18 @@
 	                _react2["default"].createElement(
 	                  "label",
 	                  { "for": "bogof", className: "checkbox-inline" },
-	                  _react2["default"].createElement("input", { id: "bogof", type: "checkbox", checked: this.props.bogof, onChange: function () {
+	                  _react2["default"].createElement("input", {
+	                    id: "bogof",
+	                    type: "checkbox",
+	                    checked: this.props.bogof,
+	                    onChange: function () {
 	                      function onChange(e) {
 	                        return _this2.props.handleBogofChange(e.target.value);
 	                      }
 
 	                      return onChange;
-	                    }() }),
+	                    }()
+	                  }),
 	                  "Buy One Get One Free?"
 	                )
 	              )
@@ -4586,7 +4603,7 @@
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -4602,7 +4619,7 @@
 
 	var _pizzaCalculator3 = _interopRequireDefault(_pizzaCalculator2);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4620,30 +4637,33 @@
 	  }
 
 	  _createClass(Result, [{
-	    key: "_calculateSolution",
+	    key: '_calculateSolution',
 	    value: function () {
 	      function _calculateSolution(slicesNeeded) {
-	        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { bogof: false };
 
-	        var _pizzaCalculator = (0, _pizzaCalculator3["default"])({ slicesNeeded: slicesNeeded, bogof: options.bogof }),
+	        var _pizzaCalculator = (0, _pizzaCalculator3['default'])({
+	          slicesNeeded: slicesNeeded,
+	          bogof: options.bogof
+	        }),
 	            pizzas = _pizzaCalculator.pizzas,
 	            total = _pizzaCalculator.total;
 
 	        var result = [];
 	        if (pizzas.large) {
-	          result.push(pizzas.large + " Larges");
+	          result.push(pizzas.large + ' Larges');
 	        }
 	        if (pizzas.medium) {
-	          result.push(pizzas.medium + " Mediums");
+	          result.push(pizzas.medium + ' Mediums');
 	        }
-	        var solution = pizzas.large || pizzas.medium ? result.join(", ") : "No Pizza";
+	        var solution = pizzas.large || pizzas.medium ? result.join(', ') : 'No Pizza';
 	        return { solution: solution, slicesAvailible: total };
 	      }
 
 	      return _calculateSolution;
 	    }()
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function () {
 	      function render() {
 	        var _props = this.props,
@@ -4657,51 +4677,51 @@
 	            solution = _calculateSolution2.solution,
 	            slicesAvailible = _calculateSolution2.slicesAvailible;
 
-	        return _react2["default"].createElement(
-	          "div",
-	          { id: "result", className: "text-center" },
-	          _react2["default"].createElement(
-	            "p",
-	            { id: "pizzas-required" },
-	            _react2["default"].createElement(
-	              "span",
-	              { className: "lead" },
-	              _react2["default"].createElement(
-	                "strong",
+	        return _react2['default'].createElement(
+	          'div',
+	          { id: 'result', className: 'text-center' },
+	          _react2['default'].createElement(
+	            'p',
+	            { id: 'pizzas-required' },
+	            _react2['default'].createElement(
+	              'span',
+	              { className: 'lead' },
+	              _react2['default'].createElement(
+	                'strong',
 	                null,
 	                solution
 	              )
 	            )
 	          ),
-	          _react2["default"].createElement(
-	            "p",
-	            { id: "total-slices" },
-	            _react2["default"].createElement(
-	              "strong",
+	          _react2['default'].createElement(
+	            'p',
+	            { id: 'total-slices' },
+	            _react2['default'].createElement(
+	              'strong',
 	              null,
 	              slicesAvailible
 	            ),
-	            " slices"
+	            ' slices'
 	          ),
-	          _react2["default"].createElement(
-	            "p",
-	            { id: "slices-left-over" },
-	            _react2["default"].createElement(
-	              "strong",
+	          _react2['default'].createElement(
+	            'p',
+	            { id: 'slices-left-over' },
+	            _react2['default'].createElement(
+	              'strong',
 	              null,
 	              slicesAvailible - slicesNeeded
 	            ),
-	            " left over"
+	            ' left over'
 	          ),
-	          _react2["default"].createElement(
-	            "p",
-	            { id: "slices-each" },
-	            _react2["default"].createElement(
-	              "strong",
+	          _react2['default'].createElement(
+	            'p',
+	            { id: 'slices-each' },
+	            _react2['default'].createElement(
+	              'strong',
 	              null,
 	              (slicesAvailible / people).toFixed(2)
 	            ),
-	            " slices each"
+	            ' slices each'
 	          )
 	        );
 	      }
@@ -4711,9 +4731,9 @@
 	  }]);
 
 	  return Result;
-	}(_react2["default"].Component);
+	}(_react2['default'].Component);
 
-	exports["default"] = Result;
+	exports['default'] = Result;
 
 /***/ }),
 /* 39 */
@@ -4737,6 +4757,7 @@
 
 	  return calculateSlices;
 	}();
+
 	var pizzaCalculator = function () {
 	  function pizzaCalculator(_ref2) {
 	    var slicesNeeded = _ref2.slicesNeeded,
